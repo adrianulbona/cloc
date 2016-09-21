@@ -3,8 +3,10 @@ package io.github.adrianulbona.cloc.index;
 import io.github.adrianulbona.cloc.index.geo.Symbol;
 import lombok.Data;
 
+import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static java.util.function.Function.identity;
 import static java.util.stream.Stream.empty;
 
 /**
@@ -26,7 +28,11 @@ public interface Node<P> {
 
 	boolean hasChildren();
 
-	Stream<P> packages();
+	default Stream<P> collect() {
+		return collect(p -> p);
+	}
+
+	<T> Stream<T> collect(PackageTransformer<P, T> transformer);
 
 	@Data
 	class EmptyNode<P> implements Node<P>{
@@ -37,8 +43,13 @@ public interface Node<P> {
 		}
 
 		@Override
-		public Stream<P> packages() {
+		public <T> Stream<T> collect(PackageTransformer<P, T> transformer) {
 			return empty();
 		}
+	}
+
+	interface PackageTransformer<P, T> {
+
+		T transform(P p);
 	}
 }

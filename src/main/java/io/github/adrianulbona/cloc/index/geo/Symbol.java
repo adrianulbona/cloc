@@ -1,9 +1,11 @@
 package io.github.adrianulbona.cloc.index.geo;
 
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -61,5 +63,9 @@ public enum Symbol {
 			throw new IllegalArgumentException();
 		}
 		return index.get(base32);
+	}
+
+	public static List<Symbol> decodeMultiple(String rawSymbols) {
+		return rawSymbols.chars().mapToObj(Symbol::decode).collect(toList());
 	}
 }

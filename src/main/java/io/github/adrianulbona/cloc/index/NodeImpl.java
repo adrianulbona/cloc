@@ -37,7 +37,7 @@ public class NodeImpl<P> implements Node<P> {
 	}
 
 	@Override
-	public Stream<P> packages() {
-		return this.children.values().stream().flatMap(Node::packages).distinct();
+	public <T> Stream<T> collect(PackageTransformer<P, T> transformer) {
+		return this.children.values().stream().flatMap(node -> node.collect(transformer)).distinct();
 	}
 }

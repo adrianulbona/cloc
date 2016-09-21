@@ -17,8 +17,10 @@ public class Leaf<P> implements Node<P> {
 		return false;
 	}
 
+
 	@Override
-	public Stream<P> packages() {
-		return Stream.of(pack);
+	public <T> Stream<T> collect(PackageTransformer<P, T> transformer) {
+		return Stream.of(transformer.transform(pack));
 	}
+
 }

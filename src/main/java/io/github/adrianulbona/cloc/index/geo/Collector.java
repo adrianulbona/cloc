@@ -13,7 +13,7 @@ public class Collector {
 
 	public <P> List<P> collect(Node<P> node, List<Symbol> path) {
 		if (path.isEmpty() || !node.hasChildren()) {
-			return node.packages().collect(toList());
+			return node.collect().collect(toList());
 		} else {
 			final Symbol head = path.get(0);
 			final Node<P> child = node.getChildOr(head, new Node.EmptyNode<>());
