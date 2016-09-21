@@ -4,12 +4,8 @@ import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
@@ -21,10 +17,10 @@ import static java.util.stream.Collectors.toList;
 public class AnnotatedGeoHashStreamer {
 
 
-	public Stream<AnnotatedGeoHash> stream() throws IOException, URISyntaxException {
-		final Path path = Paths.get(AnnotatedGeoHashStreamer.class.getResource("cloc5.json.gz").toURI().getPath());
-		final GZIPInputStream gzip = new GZIPInputStream(Files.newInputStream(path));
-		try (final BufferedReader reader = new BufferedReader(new InputStreamReader(gzip))) {
+	public Stream<AnnotatedGeoHash> stream() throws IOException {
+		try (final InputStream inputStream = AnnotatedGeoHashStreamer.class.getResourceAsStream("cloc5.json.gz");
+			 final GZIPInputStream gzip = new GZIPInputStream(inputStream);
+			 final BufferedReader reader = new BufferedReader(new InputStreamReader(gzip))) {
 			final Gson gson = new Gson();
 			return reader.lines().collect(toList()).stream().map(line -> gson.fromJson(line, AnnotatedGeoHash.class));
 		}

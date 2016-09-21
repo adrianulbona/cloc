@@ -3,10 +3,6 @@ package io.github.adrianulbona.cloc.index.geo;
 import io.github.adrianulbona.cloc.data.AnnotatedGeoHash;
 import io.github.adrianulbona.cloc.data.AnnotatedGeoHashStreamer;
 import io.github.adrianulbona.cloc.index.Node;
-import io.github.adrianulbona.cloc.index.geo.Collector;
-import io.github.adrianulbona.cloc.index.geo.Delivery;
-import io.github.adrianulbona.cloc.index.geo.Driver;
-import io.github.adrianulbona.cloc.index.geo.Symbol;
 import org.junit.Test;
 
 import java.util.Arrays;
