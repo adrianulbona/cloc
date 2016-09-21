@@ -1,6 +1,6 @@
 package io.github.adrianulbona.cloc.index;
 
-import io.github.adrianulbona.cloc.GeoSymbol;
+import io.github.adrianulbona.cloc.index.geo.Symbol;
 import lombok.Data;
 
 import java.util.stream.Stream;
@@ -12,15 +12,15 @@ import static java.util.stream.Stream.empty;
  */
 public interface Node<P> {
 
-	default Node<P> getChildOrCreate(GeoSymbol symbol, NodeFactory<P> nodeFactory) {
+	default Node<P> getChildOrCreate(Symbol symbol, NodeFactory<P> nodeFactory) {
 		throw new UnsupportedOperationException();
 	}
 
-	default Node<P> getChildOr(GeoSymbol symbol, Node<P> orNode) {
+	default Node<P> getChildOr(Symbol symbol, Node<P> orNode) {
 		throw new UnsupportedOperationException();
 	}
 
-	default void createChildAndOverwriteIfNeeded(GeoSymbol symbol, NodeFactory<P> nodeFactory) {
+	default void createChildAndOverwriteIfNeeded(Symbol symbol, NodeFactory<P> nodeFactory) {
 		throw new UnsupportedOperationException();
 	}
 

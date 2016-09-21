@@ -1,4 +1,4 @@
-package io.github.adrianulbona.cloc;
+package io.github.adrianulbona.cloc.index.geo;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toMap;
 /**
  * Created by adrianulbona on 30/08/16.
  */
-public enum GeoSymbol {
+public enum Symbol {
 	GS_0('0'),
 	GS_1('1'),
 	GS_2('2'),
@@ -44,11 +44,11 @@ public enum GeoSymbol {
 	GS_z('z'),
 	MISSING('_');
 
-	private static final Map<Integer, GeoSymbol> index = stream(values()).collect(toMap(GeoSymbol::raw, identity()));
+	private static final Map<Integer, Symbol> index = stream(values()).collect(toMap(Symbol::raw, identity()));
 
 	public final int base32;
 
-	GeoSymbol(int base32) {
+	Symbol(int base32) {
 		this.base32 = base32;
 	}
 
@@ -56,7 +56,7 @@ public enum GeoSymbol {
 		return this.base32;
 	}
 
-	public static GeoSymbol decode(int base32) {
+	public static Symbol decode(int base32) {
 		if (!index.containsKey(base32)) {
 			throw new IllegalArgumentException();
 		}

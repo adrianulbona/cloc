@@ -1,6 +1,6 @@
 package io.github.adrianulbona.cloc.index;
 
-import io.github.adrianulbona.cloc.GeoSymbol;
+import io.github.adrianulbona.cloc.index.geo.Symbol;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -14,20 +14,20 @@ import java.util.stream.Stream;
 @Data
 public class NodeImpl<P> implements Node<P> {
 
-	private final Map<GeoSymbol, Node<P>> children = new HashMap<>();
+	private final Map<Symbol, Node<P>> children = new HashMap<>();
 
 	@Override
-	public Node<P> getChildOrCreate(GeoSymbol symbol, NodeFactory<P> nodeFactory) {
+	public Node<P> getChildOrCreate(Symbol symbol, NodeFactory<P> nodeFactory) {
 		return this.children.computeIfAbsent(symbol, key -> nodeFactory.create());
 	}
 
 	@Override
-	public Node<P> getChildOr(GeoSymbol symbol, Node<P> defaultNode) {
+	public Node<P> getChildOr(Symbol symbol, Node<P> defaultNode) {
 		return this.children.getOrDefault(symbol, defaultNode);
 	}
 
 	@Override
-	public void createChildAndOverwriteIfNeeded(GeoSymbol symbol, NodeFactory<P> nodeFactory) {
+	public void createChildAndOverwriteIfNeeded(Symbol symbol, NodeFactory<P> nodeFactory) {
 		this.children.put(symbol, nodeFactory.create());
 	}
 
