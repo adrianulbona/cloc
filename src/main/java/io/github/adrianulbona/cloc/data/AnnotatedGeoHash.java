@@ -11,5 +11,5 @@ import java.util.List;
 public class AnnotatedGeoHash {
 
 	private final String geoHash;
-	private final String[] annotations;
+	private final int countriesIndex;
 }

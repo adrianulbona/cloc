@@ -1,6 +1,5 @@
 package io.github.adrianulbona.cloc;
 
-import io.github.adrianulbona.cloc.data.AnnotatedGeoHash;
 import io.github.adrianulbona.cloc.data.AnnotatedGeoHashStreamer;
 import io.github.adrianulbona.cloc.index.Node;
 import io.github.adrianulbona.cloc.index.geo.Delivery;
@@ -15,13 +14,13 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by adrianulbona on 21/09/16.
  */
-public class IndexLoader {
+public class GeoHashTreeLoader {
 
-	public Node<String[]> load() throws IOException {
-		final Stream<Delivery<String[]>> deliveryStream = new AnnotatedGeoHashStreamer().stream().map(ag ->
+	public Node<Integer> load() throws IOException {
+		final Stream<Delivery<Integer>> deliveryStream = new AnnotatedGeoHashStreamer().stream().map(ag ->
 				new Delivery<>(
 						ag.getGeoHash().chars().mapToObj(Symbol::decode).collect(toList()),
-						ag.getAnnotations()));
-		return Driver.<String[]>withEmptyRoot().deliverMultiple(deliveryStream);
+						ag.getCountriesIndex()));
+		return Driver.<Integer>withEmptyRoot().deliverMultiple(deliveryStream);
 	}
 }
