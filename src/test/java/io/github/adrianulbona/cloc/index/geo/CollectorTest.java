@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 public class CollectorTest {
 
 	@Test
-	public void collect() throws Exception {
+	public void collect() {
 
 		final Driver<Integer> driver = Driver.withEmptyRoot();
 		final Stream<AnnotatedGeoHash> annotatedGeoHashStream = new AnnotatedGeoHashStreamer().stream();

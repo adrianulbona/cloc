@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class AnnotatedGeoHashStreamerTest {
 
 	@Test
-	public void testCount() throws Exception {
+	public void testCount() {
 		assertEquals(1195623, new AnnotatedGeoHashStreamer().stream().count());
 	}
 }

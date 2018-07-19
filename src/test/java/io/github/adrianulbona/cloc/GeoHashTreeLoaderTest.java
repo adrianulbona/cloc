@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class GeoHashTreeLoaderTest {
 
 	@Test
-	public void build() throws Exception {
+	public void build() {
 		final Node<Integer> index = new GeoHashTreeLoader().load();
 		assertNotNull(index);
 		assertTrue(index.hasChildren());

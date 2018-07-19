@@ -6,7 +6,6 @@ import io.github.adrianulbona.cloc.index.geo.Collector;
 import io.github.adrianulbona.cloc.index.geo.Symbol;
 import lombok.AllArgsConstructor;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,24 +18,24 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 public class CountryLocator {
 
-	private final Node<Integer> geoHashTree;
-	private final Map<Integer, List<String>> countriesIndex;
+    private final Node<Integer> geoHashTree;
+    private final Map<Integer, List<String>> countriesIndex;
 
-	public List<String> locate(String geoHash) {
-		if (geoHash == null || geoHash.isEmpty()) {
-			throw new IllegalArgumentException();
-		}
-		final List<Integer> packages = new Collector().collect(this.geoHashTree, Symbol.decodeMultiple(geoHash));
-		return packages.stream()
-				.map(this.countriesIndex::get)
-				.flatMap(List::stream)
-				.distinct()
-				.collect(toList());
-	}
+    public List<String> locate(String geoHash) {
+        if (geoHash == null || geoHash.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        final List<Integer> packages = new Collector().collect(this.geoHashTree, Symbol.decodeMultiple(geoHash));
+        return packages.stream()
+                .map(this.countriesIndex::get)
+                .flatMap(List::stream)
+                .distinct()
+                .collect(toList());
+    }
 
-	public static CountryLocator fromFreshIndex() throws IOException {
-		final Node<Integer> load = new GeoHashTreeLoader().load();
-		final Map<Integer, List<String>> countriesIndex = new CountriesIndexLoader().load();
-		return new CountryLocator(load, countriesIndex);
-	}
+    public static CountryLocator create() {
+        final Node<Integer> load = new GeoHashTreeLoader().load();
+        final Map<Integer, List<String>> countriesIndex = new CountriesIndexLoader().load();
+        return new CountryLocator(load, countriesIndex);
+    }
 }
