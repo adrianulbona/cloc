@@ -6,7 +6,7 @@
 
     <groupId>io.github.adrianulbona</groupId>
     <artifactId>cloc</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.3.1</version>
     <name>Country Locator</name>
     <description>A Java library able to localize GeoHashes within countries</description>
     <url>http://adrianulbona.github.io/cloc/</url>
@@ -51,7 +51,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
