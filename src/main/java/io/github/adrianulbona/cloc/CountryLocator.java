@@ -6,6 +6,7 @@ import io.github.adrianulbona.cloc.index.geo.Collector;
 import io.github.adrianulbona.cloc.index.geo.Symbol;
 import lombok.AllArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import static java.util.stream.Collectors.toList;
  */
 
 @AllArgsConstructor
-public class CountryLocator {
+public class CountryLocator implements Serializable {
 
     private final Node<Integer> geoHashTree;
     private final Map<Integer, List<String>> countriesIndex;
