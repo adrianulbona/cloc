@@ -1,7 +1,6 @@
 # cloc 
 
 [![Build Status](https://travis-ci.org/adrianulbona/cloc.svg?branch=master)](https://travis-ci.org/adrianulbona/cloc)
-[![Coverage Status](https://coveralls.io/repos/github/adrianulbona/cloc/badge.svg)](https://coveralls.io/github/adrianulbona/cloc)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.adrianulbona/cloc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.adrianulbona/cloc)
 
 This is a self-contained Java library able to do country localization based on [geohashes](https://en.wikipedia.org/wiki/Geohash). 
