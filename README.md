@@ -32,7 +32,7 @@ final List<String> countries = countryLocator.locate("u10hb1"); // ["United King
 val locator = spark.sparkContext.broadcast(CountryLocator.create())
 val locate = udf { (geohash: String) => locator.value.locate(geohash).asScala }
 
-val pointsDF : DataFrame = Seq(
+val pointsDF: DataFrame = Seq(
   Point("u10hb1", 51.47, 0.00),
   Point("u33ff3", 52.52, 13.81)).toDF
 
