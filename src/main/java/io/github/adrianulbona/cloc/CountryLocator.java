@@ -23,6 +23,10 @@ public class CountryLocator implements Serializable {
     private final Map<Integer, List<String>> countriesIndex;
 
     public List<String> locate(String geoHash) {
+        return locateCountryName(geoHash);
+    }
+
+    public List<String> locateCountryName(String geoHash) {
         if (geoHash == null || geoHash.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -31,7 +35,30 @@ public class CountryLocator implements Serializable {
                 .map(this.countriesIndex::get)
                 .flatMap(List::stream)
                 .distinct()
+                .map(CountryLocator::extractName)
                 .collect(toList());
+    }
+
+    public List<Country> locateCountry(String geoHash) {
+        if (geoHash == null || geoHash.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        final List<Integer> packages = new Collector().collect(this.geoHashTree, Symbol.decodeMultiple(geoHash));
+        return packages.stream()
+                .map(this.countriesIndex::get)
+                .flatMap(List::stream)
+                .distinct()
+                .map(CountryLocator::extractCountry)
+                .collect(toList());
+    }
+
+    private static String extractName(final String str) {
+        return str.split(";")[0];
+    }
+
+    private static Country extractCountry(final String str) {
+        final String[] data = str.split(";");
+        return new Country(data[0], data[1], data[2], data[3]);
     }
 
     public static CountryLocator create() {
