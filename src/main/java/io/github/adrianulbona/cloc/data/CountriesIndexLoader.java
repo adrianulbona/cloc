@@ -9,9 +9,10 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toMap;
@@ -26,11 +27,18 @@ public class CountriesIndexLoader {
              BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             return reader.lines()
                     .map(this::parseIdCountries)
-                    .collect(toMap(idCountries -> idCountries.id, idCountries -> idCountries.countries));
+                    .collect(toMap(
+                            idCountries -> idCountries.id,
+                            idCountries -> idCountries.countries,
+                            (u, v) -> {
+                                throw new IllegalStateException(String.format("Duplicate key %s", u));
+                            },
+                            LinkedHashMap::new));
         } catch (IOException e) {
             throw new RuntimeException("Unable to load countries.index", e);
         }
     }
+
 
     private IdCountries parseIdCountries(String rawEntry) {
         final String[] idCountries = rawEntry.split("=");
